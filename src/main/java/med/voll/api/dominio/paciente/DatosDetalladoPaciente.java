@@ -1,6 +1,6 @@
-package med.voll.api.paciente;
+package med.voll.api.dominio.paciente;
 
-import med.voll.api.direccion.Direccion;
+import med.voll.api.dominio.direccion.Direccion;
 
 public record DatosDetalladoPaciente(String nombre, String email, String telefono, String documentoIdentidad, Direccion direccion) {
     public DatosDetalladoPaciente(Paciente paciente) {

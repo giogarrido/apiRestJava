@@ -2,8 +2,12 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.direccion.DatosDireccion;
-import med.voll.api.medico.*;
+import med.voll.api.dominio.direccion.DatosDireccion;
+import med.voll.api.dominio.medico.DatosListadoMedico;
+import med.voll.api.dominio.medico.DatosRespuestaMedico;
+import med.voll.api.dominio.medico.Medico;
+import med.voll.api.dominio.medico.MedicoRepository;
+import med.voll.api.dominio.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -23,7 +26,7 @@ public class MedicoController {
     private MedicoRepository medicoRepository;
     @PostMapping
     public ResponseEntity<DatosRespuestaMedico> registrarMedico(@RequestBody @Valid DatosRegistroMedico datosRegistroMedico,
-                                          UriComponentsBuilder uriComponentsBuilder) {
+                                                                UriComponentsBuilder uriComponentsBuilder) {
         Medico medico = medicoRepository.save(new Medico(datosRegistroMedico));
         DatosRespuestaMedico datosRespuestaMedico = new DatosRespuestaMedico(medico.getId(), medico.getNombre(), medico.getEmail(),
                 medico.getTelefono(), medico.getEspecialidad().toString(),new DatosDireccion(medico.getDireccion().getCalle(),
